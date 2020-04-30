@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="shortcut icon" href="#" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet" defer>
+    <link href="public/scss/main.css" rel="stylesheet">
+    <title>Recipe Book</title>
+  </head>
+  <body>
+    <div class="modal">
+      <div class="modal__overlay">
+        <span class="modal__close">&times;</span>
+        <div class="modal__container js-recipe-view">   
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav__container">
+        <div class="nav__logo">
+          <img src="public/img/logo.png" alt="logo" class="nav__logo-img">
+        </div>
+        <div class="nav__button">
+          <button class="button button--gradient-success">Add Recipe</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="form">
+        <img src="public/img/search.png" alt="search icon" class="form__search-icon">
+        <input type="text" placeholder="Search" class="form__input form__input--search js-search">
+      </div>
+      <div class="recipe">
+        <ul class="recipe__list js-list-recipe">
+          <div class="loading">
+            <div class="loading__thumb"></div>
+          </div>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>
+<script src="public/js/main.js"></script>

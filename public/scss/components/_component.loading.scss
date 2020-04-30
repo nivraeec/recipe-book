@@ -1,0 +1,26 @@
+.loading {
+  position: relative;
+
+  &__thumb {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50px;
+    width: 50px;
+    border-top: 5px solid $ruby;
+    border-bottom: 5px solid $ruby;
+    border-left: 5px solid rgba(0, 0, 0, 0.05);
+    border-right: 5px solid rgba(0, 0, 0, 0.05);
+    border-radius: 100%;
+    animation: loading ease-in-out 1s infinite;
+
+    @keyframes loading {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}

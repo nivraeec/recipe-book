@@ -1,0 +1,20 @@
+.button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: $white;
+  cursor: pointer;
+  outline: none;
+
+  @each $key, $color in $colors {
+    &--#{$key} {
+      background: #{$color};
+    }
+  }
+
+  @each $key, $color in $gradients {
+    &--gradient-#{$key} {
+      background: #{$color};
+    }
+  }
+}

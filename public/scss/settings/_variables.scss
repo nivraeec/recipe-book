@@ -1,0 +1,35 @@
+$default: 1.4rem;
+
+$thin: 100;
+$regular: 400;
+$medium: 500;
+$bold: 700;
+
+$aquamarine: #45fbb3;
+$blaze-orange: #f86802;
+$bright-orange: #facf4e;
+$dark-aquamarine: #129886;
+$baby-blue: #4ff0fb;
+$sunset-pearl: #f3c685;
+$danger: #f44336;
+$dark-primary: #185789;
+$denim: #1565c0;
+$primary: #2196f3;
+$success: #4caf50;
+$warning: #ffc107;
+$iris-blue: #00bcd4;
+$ruby: #e91e63;
+$orange: #ff9800;
+$gray20: #333;
+$white: #fff;
+$shamrock: #2ad19d;
+$summer-sky: #1b9ee0;
+
+$primary-gradient: linear-gradient(to top right, $baby-blue, $denim);
+$danger-gradient: linear-gradient(to top right, $sunset-pearl, $ruby);
+$success-gradient: linear-gradient(to top right, $aquamarine, $dark-aquamarine);
+$warning-gradient: linear-gradient(to top right, $bright-orange, $blaze-orange);
+$clear-gradient: linear-gradient(to top right, $summer-sky, $shamrock);
+
+$gradients: ("primary": $primary-gradient, "danger": $danger-gradient, "success": $success-gradient, "warning": $warning-gradient, "clear": $clear-gradient);
+$colors: ("danger": $danger, "primary": $primary, "success": $success, "warning": $warning);
