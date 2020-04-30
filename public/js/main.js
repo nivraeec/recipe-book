@@ -41,6 +41,7 @@ const api = {
 
 const helpers = {
   recipeTemp(res) {
+    $('.js-list-recipe').innerHTML = ''
     let temp = ''
     if(res.length === 0) {
       temp = "<div class='recipe__not-found'>No Results Found!</div>"
@@ -49,52 +50,55 @@ const helpers = {
       return false
     }
 
-    res.forEach(item => {
-      temp += `
-        <li class="recipe__item">
-          <div class="recipe__container">
-            <div class="recipe__img-holder">
-              <img src="public/${item.images.medium}" alt="${item.title}" class="recipe__img">
-              <div class="recipe__button">
-                <button class="button button--gradient-warning js-view-recipe" data-id="${item.uuid}">
-                  View Recipe
-                </button>
-              </div>
-            </div>
-            <div class="recipe__details">
-              <div class="recipe__name">
-                ${item.title}
-              </div>
-              <div class="recipe__description">
-                ${item.description}
-              </div>
+    res.forEach((item, key) => {
+      const li = document.createElement('LI')
+      li.classList.add('recipe__item')
+
+      temp = `
+        <div class="recipe__container">
+          <div class="recipe__img-holder">
+            <img src="public/${item.images.medium}" alt="${item.title}" class="recipe__img">
+            <div class="recipe__button">
+              <button class="button button--gradient-warning js-view-recipe" data-id="${item.uuid}">
+                View Recipe
+              </button>
             </div>
           </div>
-        </li>
+          <div class="recipe__details">
+            <div class="recipe__name">
+              ${item.title}
+            </div>
+            <div class="recipe__description">
+              ${item.description}
+            </div>
+          </div>
+        </div>
       `
+
+      li.innerHTML = temp
+
+      setTimeout(() => {
+        $('.js-list-recipe').append(li)
+
+        document.querySelectorAll('.js-view-recipe').forEach(el => {
+          const elem = el
+          elem.onclick = e => {
+            e.preventDefault()
+            e.stopPropagation()
+            $('body').style.overflow = 'hidden'
+  
+            helpers.viewRecipe(e)
+  
+            modalOverlay.style.display = 'block'
+            modalOverlay.style.opacity = 1
+          
+            setTimeout(() => {
+              modalContainer.style.opacity = 1
+            }, 100)
+          }
+        })
+      }, (300 * key))
     })
-
-    setTimeout(() => {
-      $('.js-list-recipe').innerHTML = temp
-
-      document.querySelectorAll('.js-view-recipe').forEach(el => {
-        const elem = el
-        elem.onclick = e => {
-          e.preventDefault()
-          e.stopPropagation()
-          $('body').style.overflow = 'hidden'
-
-          helpers.viewRecipe(e)
-
-          modalOverlay.style.display = 'block'
-          modalOverlay.style.opacity = 1
-        
-          setTimeout(() => {
-            modalContainer.style.opacity = 1
-          }, 100)
-        }
-      })
-    }, 1e3)
   },
   getAllRecipe() {
     api.get('http://localhost:3001/recipes')
@@ -192,7 +196,7 @@ modalClose.onclick = e => {
   }, 300)
 }
 
-$('.js-search').onkeyup = e => {
+$('.js-search').onchange = e => {
   const elem = e.target
   const value = elem.value
   let recipe = JSON.parse(localStorage.getItem('recipe'))
