@@ -14,7 +14,8 @@
 }
 
 body {
-  background: #f9f9f9;
+  background: url("../img/background.png") #f9f9f9;
+  background-size: 300px;
   color: #333;
   font-size: $default;
   font-family: 'Roboto', sans-serif;

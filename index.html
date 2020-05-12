@@ -23,15 +23,35 @@
           <img src="public/img/logo.png" alt="logo" class="nav__logo-img">
         </div>
         <div class="nav__button">
-          <button class="button button--gradient-success">Add Recipe</button>
+          <button class="button button--gradient-success js-register-show">Add Recipe</button>
         </div>
       </div>
     </nav>
+
+    <aside class="register">
+      <div class="register__title">
+        Registration
+        <span class="register__close js-register-close">&times;</span>
+      </div>
+      <div class="register__form">
+        <div class="register__form-item">
+          <input type="text" class="register__form-input" placeholder="Recipe Name">
+        </div>
+        <div class="register__form-item">
+          <input type="text" class="register__form-input" placeholder="Description">
+        </div>
+        <div class="register__form-item">
+          <input type="number" class="register__form-input" placeholder="Servings">
+          <input type="number" class="register__form-input" placeholder="Preparation Time">
+        </div>
+      </div>
+    </aside>
 
     <main class="main">
       <div class="form">
         <img src="public/img/search.png" alt="search icon" class="form__search-icon">
         <input type="text" placeholder="Search" class="form__input form__input--search js-search">
+        <img src="public/img/sort.png" alt="sort icon" class="form__sort-icon js-sort" title="Sort">
       </div>
       <div class="recipe">
         <ul class="recipe__list js-list-recipe">

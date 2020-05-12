@@ -12,7 +12,6 @@
     overflow: hidden;
     box-shadow: 0 7px 7px -12px #999;
     vertical-align: top;
-    animation: popout ease-in-out 0.3s;
 
     &:not(:last-child) {
       margin-right: 20px;
@@ -25,21 +24,6 @@
     @media screen and (max-width: 767px) {
       width: 100%;
       margin-right: 0;
-    }
-
-    @keyframes popout {
-      0% {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      50% {
-        transform: scale(1.1);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
     }
   }
 

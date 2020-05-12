@@ -41,7 +41,6 @@ const api = {
 
 const helpers = {
   recipeTemp(res) {
-    $('.js-list-recipe').innerHTML = ''
     let temp = ''
     if(res.length === 0) {
       temp = "<div class='recipe__not-found'>No Results Found!</div>"
@@ -50,55 +49,52 @@ const helpers = {
       return false
     }
 
-    res.forEach((item, key) => {
-      const li = document.createElement('LI')
-      li.classList.add('recipe__item')
-
-      temp = `
-        <div class="recipe__container">
-          <div class="recipe__img-holder">
-            <img src="public/${item.images.medium}" alt="${item.title}" class="recipe__img">
-            <div class="recipe__button">
-              <button class="button button--gradient-warning js-view-recipe" data-id="${item.uuid}">
-                View Recipe
-              </button>
+    res.forEach(item => {
+      temp += `
+        <li class="recipe__item">
+          <div class="recipe__container">
+            <div class="recipe__img-holder">
+              <img src="public/${item.images.medium}" alt="${item.title}" class="recipe__img">
+              <div class="recipe__button">
+                <button class="button button--gradient-warning js-view-recipe" data-id="${item.uuid}">
+                  View Recipe
+                </button>
+              </div>
+            </div>
+            <div class="recipe__details">
+              <div class="recipe__name">
+                ${item.title}
+              </div>
+              <div class="recipe__description">
+                ${item.description}
+              </div>
             </div>
           </div>
-          <div class="recipe__details">
-            <div class="recipe__name">
-              ${item.title}
-            </div>
-            <div class="recipe__description">
-              ${item.description}
-            </div>
-          </div>
-        </div>
+        </li>
       `
-
-      li.innerHTML = temp
-
-      setTimeout(() => {
-        $('.js-list-recipe').append(li)
-
-        document.querySelectorAll('.js-view-recipe').forEach(el => {
-          const elem = el
-          elem.onclick = e => {
-            e.preventDefault()
-            e.stopPropagation()
-            $('body').style.overflow = 'hidden'
-  
-            helpers.viewRecipe(e)
-  
-            modalOverlay.style.display = 'block'
-            modalOverlay.style.opacity = 1
-          
-            setTimeout(() => {
-              modalContainer.style.opacity = 1
-            }, 100)
-          }
-        })
-      }, (300 * key))
     })
+
+    setTimeout(() => {
+      $('.js-list-recipe').innerHTML = temp
+
+      document.querySelectorAll('.js-view-recipe').forEach(el => {
+        const elem = el
+        elem.onclick = e => {
+          e.preventDefault()
+          e.stopPropagation()
+          $('body').style.overflow = 'hidden'
+
+          helpers.viewRecipe(e)
+
+          modalOverlay.style.display = 'block'
+          modalOverlay.style.opacity = 1
+        
+          setTimeout(() => {
+            modalContainer.style.opacity = 1
+          }, 100)
+        }
+      })
+    }, 1e3)
   },
   getAllRecipe() {
     api.get('http://localhost:3001/recipes')
@@ -158,7 +154,12 @@ const helpers = {
       </div>
       <div class="modal__recipe">
         <h2 class="modal__recipe-title">Food Recipe</h2>
-        <div class="modal__recipe-info">Preparation Time: ${thisRecipe.prepTime} minutes</div>
+        <div class="modal__recipe-info">
+          <img src="public/img/stopwatch.png" class="modal__icon"> Preparation Time: ${thisRecipe.prepTime} minutes
+        </div>
+        <div class="modal__recipe-info">
+        <img src="public/img/stopwatch.png" class="modal__icon"> Cook Time: ${thisRecipe.cookTime} minutes
+        </div>
         <div class="modal__recipe-info">Servings: ${thisRecipe.servings}</div>
         <div class="modal__recipe-subtitle">Ingredients:</div>
         <ul class="modal__recipe-list">
@@ -196,12 +197,75 @@ modalClose.onclick = e => {
   }, 300)
 }
 
-$('.js-search').onchange = e => {
+$('.js-search').onkeyup = e => {
   const elem = e.target
   const value = elem.value
   let recipe = JSON.parse(localStorage.getItem('recipe'))
   
   let newRecipe = recipe.filter(item => item.title.toLowerCase().indexOf(value) !== -1)
   
+  newRecipe = newRecipe.sort((a, b) => {
+    var nameA = a.title.toUpperCase()
+    var nameB = b.title.toUpperCase()
+    if (nameA < nameB) {
+      return -1
+    }
+    if (nameA > nameB) {
+      return 1
+    }
+  
+    return 0
+  })
+  
   helpers.recipeTemp(newRecipe)
+}
+
+let sortArrange = false
+
+$('.js-sort').onclick = () => {
+  let recipe = JSON.parse(localStorage.getItem('recipe'))
+  let newRecipe = []
+
+    
+  sortArrange = !sortArrange
+
+  if(sortArrange){
+    newRecipe = recipe.sort((a, b) => {
+      var nameA = a.title.toUpperCase()
+      var nameB = b.title.toUpperCase()
+      if (nameA < nameB) {
+        return -1
+      }
+      if (nameA > nameB) {
+        return 1
+      }
+    
+      return 0
+    })
+  } else {    
+    newRecipe = recipe.sort((a, b) => {
+      var nameA = a.title.toUpperCase()
+      var nameB = b.title.toUpperCase()
+      if (nameA > nameB) {
+        return -1
+      }
+      if (nameA < nameB) {
+        return 1
+      }
+    
+      return 0
+    })
+  }
+    
+  helpers.recipeTemp(newRecipe)
+}
+
+$('.js-register-show').onclick = e => {
+  e.preventDefault()
+
+  $('.register').style.display = 'block'
+}
+
+$('.js-register-close').onclick = () => {
+  $('.register').style.display = 'none'
 }

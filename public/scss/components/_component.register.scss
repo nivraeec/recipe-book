@@ -1,0 +1,68 @@
+.register {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background: $white;
+  box-shadow: 0 0 7px #999;
+  z-index: 98;
+  display: none;
+  animation: showRegister ease-in-out 0.5s;
+
+  @keyframes showRegister {
+    from {
+      right: -100%;
+      opacity: 0;
+    }
+    to {
+      right: 0;
+      opacity: 1;
+    }
+  }
+
+  &__title {
+    padding: 10px;
+    font-size: 1.8rem;
+    background: $ruby;
+    height: 55px;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  &__form {
+    padding: 20px;
+  }
+
+  &__form-item {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__form-input {
+    padding: 10px 15px;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    width: 100%;
+    border-radius: 20px;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    font-size: 3rem;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}

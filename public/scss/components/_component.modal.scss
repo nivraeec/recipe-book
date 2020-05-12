@@ -139,6 +139,8 @@
 
   &__recipe-info {
     padding: 10px;
+    display: flex;
+    align-items: center;
 
     &:not(:last-child) {
       border-bottom: 1px dashed #e1e1e1;
@@ -152,5 +154,10 @@
 
   &__recipe-special-title {
     font-weight: 700;
+  }
+
+  &__icon {
+    width: 15px;
+    margin-right: 10px;
   }
 }

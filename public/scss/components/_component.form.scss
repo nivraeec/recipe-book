@@ -13,7 +13,7 @@
       padding-left: 40px;
     
       @media screen and (max-width: 767px) {
-        width: 100%;
+        width: 85%;
       }
     }
   }
@@ -25,5 +25,18 @@
     top: 50%;
     margin-left: 10px;
     transform: translateY(-50%);
+  }
+
+  &__sort-icon {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 50%;
+    margin-left: 10px;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 100%;
+    padding: 10px;
+    cursor: pointer;
   }
 }
