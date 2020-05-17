@@ -77,6 +77,12 @@ const helpers = {
     setTimeout(() => {
       $('.js-list-recipe').innerHTML = temp
 
+      document.querySelectorAll('.recipe__item').forEach((el, key) => {
+        setTimeout(() => {
+          el.style.display = 'inline-block'
+        }, (300 * key))
+      })
+
       document.querySelectorAll('.js-view-recipe').forEach(el => {
         const elem = el
         elem.onclick = e => {
@@ -126,7 +132,7 @@ const helpers = {
       ingTemp += `
         <li class="modal__recipe-item">
           <span class="modal__recipe-amount">${ing.amount? ing.amount : ''} ${ing.measurement}</span> ${ing.name}
-          <div class="modal__recipe-special" style="margin-top: ${newSpecials? '10px' : '0'}">
+          <div class="modal__recipe-special" style="margin-top: ${ newSpecials? '10px' : 0 }; display: ${ newSpecials? 'block' : 'none' }">
             <div class="modal__recipe-special-title">${newSpecials? newSpecials.title : ''}</div>
             <div class="modal__recipe-special-type">${newSpecials? newSpecials.type : ''}</div>
             ${newSpecials? newSpecials.text : ''}
@@ -137,9 +143,10 @@ const helpers = {
 
     let procedureTemp = ''
 
-    thisRecipe.directions.forEach(procedure => {
+    thisRecipe.directions.forEach((procedure, key) => {
       procedureTemp += `
         <li class="modal__recipe-item">
+          <div class="modal__recipe-steps">STEP ${key + 1}:</div>
           ${procedure.instructions}
         </li>
       `
@@ -160,12 +167,14 @@ const helpers = {
         <div class="modal__recipe-info">
         <img src="public/img/stopwatch.png" class="modal__icon"> Cook Time: ${thisRecipe.cookTime} minutes
         </div>
-        <div class="modal__recipe-info">Servings: ${thisRecipe.servings}</div>
-        <div class="modal__recipe-subtitle">Ingredients:</div>
+        <div class="modal__recipe-info">
+          <img src="public/img/serving.png" class="modal__icon"> Servings: ${thisRecipe.servings}
+        </div>
+        <div class="modal__recipe-subtitle">Ingredients</div>
         <ul class="modal__recipe-list">
           ${ingTemp}
         </ul>
-        <div class="modal__recipe-subtitle">Procedure:</div>
+        <div class="modal__recipe-subtitle">Procedure</div>
         <ul class="modal__recipe-list">
           ${procedureTemp}
         </ul>
